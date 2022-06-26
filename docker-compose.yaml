@@ -1,0 +1,26 @@
+volumes:
+  data:
+
+services:
+  db:
+    image: mysql:8.0.29
+    volumes:
+      - data:/var/lib/mysql
+    env_file:
+      - ./.env
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PQSSWORD: ${MYSQL_ROOT_PASSWORD}
+    expose:
+      - 3306
+    restart: unless-stopped
+
+  app:
+    build: ./Dockerfile
+    depends_on:
+      - db
+    ports:
+      - 8000:8000
+    restart: unless-stopped
