@@ -2,9 +2,11 @@ FROM python:3.10.4-alpine3.16
 
 WORKDIR /app
 
-COPY ./*.py .
-COPY ./.env .
+COPY ./src/*.py .
+COPY ./src/.env .
 COPY ./requirements.txt .
+
+ENV PYTHONPATH=./src
 # Installing uvloop dependencies
 RUN apk add --update --no-cache make gcc g++ python3-dev musl-dev 
 

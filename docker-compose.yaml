@@ -7,14 +7,27 @@ services:
     volumes:
       - data:/var/lib/mysql
     env_file:
-      - ./.env
+      - ./src/.env
     environment:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
       MYSQL_ROOT_PQSSWORD: ${MYSQL_ROOT_PASSWORD}
     expose:
-      - 3306
+      - ${MYSQL_PORT}
+    restart: unless-stopped
+
+  test_db:
+    image: mysql:8.0.29
+    env_file:
+      - ./src/.env
+    environment:
+      MYSQL_DATABASE: ${TEST_MYSQL_DATABASE}
+      MYSQL_USER: ${TEST_MYSQL_USER}
+      MYSQL_PASSWORD: ${TEST_MYSQL_PASSWORD}
+      MYSQL_ROOT_PQSSWORD: ${TEST_MYSQL_ROOT_PASSWORD}
+    expose:
+      - ${TEST_MYSQL_PORT}
     restart: unless-stopped
 
   server:
