@@ -14,7 +14,7 @@ services:
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
       MYSQL_ROOT_PQSSWORD: ${MYSQL_ROOT_PASSWORD}
     expose:
-      - ${MYSQL_PORT}
+      - ${MYSQL_PORT}:3306
     restart: unless-stopped
 
   test_db:
@@ -26,8 +26,8 @@ services:
       MYSQL_USER: ${TEST_MYSQL_USER}
       MYSQL_PASSWORD: ${TEST_MYSQL_PASSWORD}
       MYSQL_ROOT_PQSSWORD: ${TEST_MYSQL_ROOT_PASSWORD}
-    expose:
-      - ${TEST_MYSQL_PORT}
+    ports:
+      - ${TEST_MYSQL_PORT}:3306
     restart: unless-stopped
 
   server:
